@@ -1,0 +1,5 @@
+#   Yuvan Marimuthu 08/25 Suduko Solver
+
+2 Key phases Suduko Board Simple Solver (Obvious Squares), Suduko Board Recursive Solver
+
+Potential Optimisations: Prioritise cells with less potential squares, convert to integers and use bit shifts etc
