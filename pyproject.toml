@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sudoku-solver"
+version = "1.0.0"
+description = "Backtracking Sudoku solver with minimum-remaining-values heuristic"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Yuvan Marimuthu" }]
+
+[project.scripts]
+sudoku-solver = "sudoku_solver.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
