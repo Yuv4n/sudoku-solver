@@ -1,62 +1,21 @@
-# Sudoku Solver
+# Sudoku solver
 
-A backtracking Sudoku solver that uses the *minimum remaining values* heuristic: it always fills the cell with the fewest legal digits first, so forced moves are made immediately and dead ends are found early.
+A Python backtracking solver for 9 × 9 Sudoku. I choose the empty cell with the fewest legal digits before branching. Candidate sets exclude digits already used in its row, column and box. The search edits a copy, leaving the supplied grid unchanged.
 
-## Highlights
+Parsing and rule checks live in `board.py`; recursive search lives in `solver.py`. The eight existing tests passed during this review, including an invalid grid and a difficult puzzle. The sample command-line run also completed. Previous timing estimates were removed because they were single-run observations, not a saved benchmark.
 
-- **Heuristic search**: forced cells are resolved instantly, and branching happens only where it must.
-- **Input validation**: rejects malformed boards and boards that already break the rules, and reports unsolvable ones.
-- **Non-destructive**: returns a new grid and leaves the input untouched.
-- **Tested and dependency-free**: 8 unit tests, standard library only.
+## Solve a puzzle
 
-## Usage
+Python 3.9+ and the standard library, from this folder:
 
-Requires Python 3.9+.
-
-```bash
-pip install -e .
-sudoku-solver puzzle.txt     # or: PYTHONPATH=src python -m sudoku_solver puzzle.txt
+```sh
+PYTHONPATH=src python3 -m sudoku_solver
+PYTHONPATH=src python3 -m sudoku_solver puzzle.txt
+PYTHONPATH=src python3 -m unittest discover -s tests
 ```
 
-A puzzle is 81 cells, with whitespace ignored and `-`, `0` or `.` for blanks. With no argument, a built-in sample is solved; `-` reads from stdin.
+The first command solves the included sample. A file must contain 81 cells; whitespace is ignored and `-`, `0` or `.` marks a blank. Use `-` as the filename to read stdin. Optional installation with `python3 -m pip install -e .` provides the `sudoku-solver` command.
 
-As a library:
+The solver returns the first solution; it does not check uniqueness. Direct library callers should supply a 9 × 9 integer grid. [Design notes](docs/plan.md) describe the remaining ideas.
 
-```python
-from sudoku_solver import parse, solve, format_grid
-
-solution = solve(parse(open("puzzle.txt").read()))
-print(format_grid(solution) if solution else "No solution")
-```
-
-## Performance
-
-Single run on a laptop (Python 3.9):
-
-| Puzzle | Time |
-|---|---|
-| Sample (included) | 0.01 s |
-| Hard puzzle (a well-known difficult 21-clue grid, in the test suite) | ~1 s |
-
-## Project structure
-
-```
-src/sudoku_solver/
-  board.py        parsing, formatting, candidate and validity checks
-  solver.py       backtracking search with MRV cell selection
-tests/            unit tests
-experiments/      set vs list lookup-time comparison
-docs/plan.md      original plan and optimisation notes
-```
-
-```bash
-PYTHONPATH=src python -m unittest discover -s tests
-```
-
-## Possible extensions
-
-Bitmask candidate sets for faster constraint checks; constraint propagation (naked and hidden singles) before branching.
-
-## License
-
-MIT
+[MIT licence](LICENSE)

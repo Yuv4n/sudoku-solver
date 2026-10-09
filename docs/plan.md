@@ -1,15 +1,7 @@
-# Plan (August 2025)
+# Search notes
 
-Two phases:
+The original plan was to fill forced cells, then backtrack through ambiguous ones. The implementation uses minimum-remaining-values selection at every recursive step. A cell with one candidate is therefore selected before one with several; there is no separate propagation pass.
 
-1. **Simple solver** – fill in the obvious cells (those with a single legal digit).
-2. **Recursive solver** – backtracking search for the rest.
+Candidates are sets. `experiments/lookup_times.py` compares set membership with list scanning for a missing value. This is a collection microbenchmark, not a Sudoku speed measurement. No saved run supports the previous 1000× claim.
 
-## Optimisations considered
-
-- Prioritise cells with the fewest candidates. **Done**: minimum-remaining-values selection in `solver.py`.
-- Represent digits as integers and candidate sets as bitmasks, using bit shifts for set operations. *Not yet done.*
-
-## Experiment
-
-`experiments/lookup_times.py` compares membership tests on a set (O(1) average) with a list (O(n)). It motivated tracking candidates as sets: at 10,000 items a list lookup was roughly 1000× slower in my run.
+The solver copies the input and returns the first solution. Possible next work is to check uniqueness and validate direct library inputs. Bitmask candidates and hidden-single propagation are ideas, not implemented features.
