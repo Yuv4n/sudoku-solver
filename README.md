@@ -1,21 +1,22 @@
 # Sudoku solver
 
-A Python backtracking solver for 9 × 9 Sudoku. I choose the empty cell with the fewest legal digits before branching. Candidate sets exclude digits already used in its row, column and box. The search edits a copy, leaving the supplied grid unchanged.
+A Python backtracking solver for 9 × 9 Sudoku that always branches on the empty cell with the fewest legal digits (minimum remaining values).
 
-Parsing and rule checks live in `board.py`; recursive search lives in `solver.py`. Eight tests cover cases including an invalid grid and a difficult puzzle. There is no saved benchmark, so no timings are claimed.
+- **Design:** parsing and rule checks in `board.py`, recursive search in `solver.py`. The search works on a copy, so the input grid is never modified.
+- **Tests:** eight unit tests, including an invalid grid and a hard puzzle.
 
-## Solve a puzzle
+## Run
 
-Python 3.9+ and the standard library, from this folder:
+Python 3.9+, standard library only:
 
 ```sh
-PYTHONPATH=src python3 -m sudoku_solver
-PYTHONPATH=src python3 -m sudoku_solver puzzle.txt
+PYTHONPATH=src python3 -m sudoku_solver            # solves the included sample
+PYTHONPATH=src python3 -m sudoku_solver puzzle.txt # 81 cells; - 0 . are blanks; "-" reads stdin
 PYTHONPATH=src python3 -m unittest discover -s tests
 ```
 
-The first command solves the included sample. A file must contain 81 cells; whitespace is ignored and `-`, `0` or `.` marks a blank. Use `-` as the filename to read stdin. Optional installation with `python3 -m pip install -e .` provides the `sudoku-solver` command.
+## Limits
 
-The solver returns the first solution; it does not check uniqueness. Direct library callers should supply a 9 × 9 integer grid. [Design notes](docs/plan.md) describe the remaining ideas.
+Returns the first solution found and does not check uniqueness. No benchmark is included. See the [design notes](docs/plan.md).
 
 [MIT licence](LICENSE)
