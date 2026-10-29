@@ -1,6 +1,6 @@
 # Sudoku solver
 
-A Python backtracking solver for 9 × 9 Sudoku that always branches on the empty cell with the fewest legal digits (minimum remaining values).
+A Python backtracking solver for 9 × 9 Sudoku that always branches on the empty cell with the fewest legal digits (minimum remaining values), where candidates exclude digits already used in its row, column and box.
 
 - **Design:** parsing and rule checks in `board.py`, recursive search in `solver.py`. The search works on a copy, so the input grid is never modified.
 - **Tests:** eight unit tests, including an invalid grid and a hard puzzle.
@@ -17,6 +17,6 @@ PYTHONPATH=src python3 -m unittest discover -s tests
 
 ## Limits
 
-Returns the first solution found and does not check uniqueness. No benchmark is included. See the [design notes](docs/plan.md).
+Returns the first solution found and does not check uniqueness; library callers should pass a 9 × 9 integer grid. `python3 -m pip install -e .` adds a `sudoku-solver` command. No benchmark is included. See the [design notes](docs/plan.md).
 
 [MIT licence](LICENSE)
