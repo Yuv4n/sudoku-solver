@@ -2,7 +2,7 @@
 
 A Python backtracking solver for 9 × 9 Sudoku. I choose the empty cell with the fewest legal digits before branching. Candidate sets exclude digits already used in its row, column and box. The search edits a copy, leaving the supplied grid unchanged.
 
-Parsing and rule checks live in `board.py`; recursive search lives in `solver.py`. The eight existing tests passed during this review, including an invalid grid and a difficult puzzle. The sample command-line run also completed. Previous timing estimates were removed because they were single-run observations, not a saved benchmark.
+Parsing and rule checks live in `board.py`; recursive search lives in `solver.py`. Eight tests cover cases including an invalid grid and a difficult puzzle. There is no saved benchmark, so no timings are claimed.
 
 ## Solve a puzzle
 
